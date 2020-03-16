@@ -10,6 +10,9 @@ import { getAllUserSchema } from './hello.schema'
 // see this for other plugin options: https://www.fastify.io/docs/latest/Plugins/#plugin-options
 @Controller()
 export class WebController {
+  // You can inject a service to controller
+  // by call @InjectService decorator
+  // pass a service class on it to get all properties to its instance
   @InjectService(HelloService)
   service: HelloService
 
