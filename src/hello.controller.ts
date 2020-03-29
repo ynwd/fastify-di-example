@@ -1,4 +1,4 @@
-import { Controller, Get, Post, InjectService } from 'fastify-di'
+import { Controller, Get, Post, InjectService, Hook } from 'fastify-di'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { Http2ServerResponse } from 'http2'
 import { HelloService } from './hello.service'
@@ -15,6 +15,12 @@ export class WebController {
   // pass a service class on it to get all properties to its instance
   @InjectService(HelloService)
   service: HelloService
+
+  @Hook('onRequest')
+  async req (request: FastifyRequest, reply: FastifyReply<Http2ServerResponse>): Promise<void> {
+    // This hook will always be executed after the shared `onRequest` hooks
+    // console.log('request', request.headers)
+  }
 
   // You can pass fastify route option at @Get() or @Post().
   // for example: @Get({ url: '/' })
